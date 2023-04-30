@@ -1,0 +1,19 @@
+kind: pipeline
+type: docker
+name: caprover-deploy
+
+platform:
+  os: linux
+  arch: arm64
+
+
+steps:
+  - name: deploy
+    image: caprover/cli-caprover
+    environment:
+      CAPROVER_APP_TOKEN:
+        from_secret: cap_token
+      CAPROVER_URL: captain.deploy.nbots.ga
+      CAPROVER_BRANCH: master
+    commands: 
+      - caprover deploy -c captain-definition -a elia
